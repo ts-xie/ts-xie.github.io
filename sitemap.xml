@@ -3,17 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ts-xie.github.io/post/best-at-clash-royal/</loc>
+    <lastmod>2018-05-21T12:10:04-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ts-xie.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://ts-xie.github.io/tags/clash-royal/</loc>
+    <lastmod>2018-05-21T12:10:04-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ts-xie.github.io/tags/game/</loc>
+    <lastmod>2018-05-21T12:10:04-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ts-xie.github.io/</loc>
+    <lastmod>2018-05-21T12:10:04-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ts-xie.github.io/post/</loc>
+    <lastmod>2018-05-21T12:10:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ts-xie.github.io/tags/</loc>
+    <lastmod>2018-05-21T12:10:04-07:00</lastmod>
     <priority>0</priority>
   </url>
   
