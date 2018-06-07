@@ -161,7 +161,7 @@
 
 <h3 id="intro">Intro</h3>
 
-<p>D3.js has simple but powerful APIs that allows us to do data driven development, creating and modifying DOM elements based on data change. All thanks to the design of D3 selection and data join. Here I&rsquo;ll explain how D3 data join work behind the scenes. Also check out <a href="https://bost.ocks.org/mike/join/">Thinking with Joins</a>, a great explanation from Mike Bostock, if you haven&rsquo;t yet.</p>
+<p>D3.js has simple but powerful APIs that allows us to do data driven development, creating and modifying DOM elements based on data change. All thanks to the design of D3 selection and data join. Here I&rsquo;ll explain how D3 data join works behind the scenes. Also check out <a href="https://bost.ocks.org/mike/join/">Thinking with Joins</a>, a great explanation from Mike Bostock, if you haven&rsquo;t yet.</p>
 
 <h3 id="selection">Selection</h3>
 
@@ -184,7 +184,16 @@ function selection() {
 }
 </code></pre>
 
-<p>There are many methods returns a new selection eg. <code>append</code>, <code>data</code>, <code>enter</code> etc. Other methods modify elements associated with a selection and returns current selection eg. <code>attr</code>, <code>style</code> etc.</p>
+<p>Method <code>select</code> and <code>selectAll</code> will return a sub selection based on previous selection. But they behave differently in grouping. <code>select</code> preserves the existing grouping, whereas <code>selectAll</code> creates a new grouping. For more details check out Mike Bostock article <a href="https://bost.ocks.org/mike/nest/">Nested Selections</a>.</p>
+
+<p>Two dimensional array structure for groups can help to build hierarchical selection. For example.</p>
+
+<pre><code>var td = d3.selectAll(&quot;tbody tr&quot;).selectAll(&quot;td&quot;);
+</code></pre>
+
+<p><code>td</code> will be a selection of <code>td</code> elements that grouped by each parent <code>tr</code> elements.</p>
+
+<p>There are many methods returns a new selection like <code>append</code>, <code>data</code>, <code>enter</code> etc. Other methods modify elements associated with a selection and returns current selection like <code>attr</code>, <code>style</code> etc.</p>
 
 <blockquote>
 <p>By convention, selection methods that return the current selection use four spaces of indent, while methods that return a new selection use only two. This helps reveal changes of context by making them stick out of the chain</p>
@@ -203,8 +212,6 @@ function selection() {
     .attr(&quot;height&quot;, 460);
 </code></pre>
 
-<p>There is a common pitfall that <code>select</code> and <code>selectAll</code> behave differently in grouping. <code>select</code> preserves the existing grouping, whereas <code>selectAll</code> creates a new grouping. For more details check out Mike Bostock article <a href="https://bost.ocks.org/mike/nest/">Nested Selections</a>.</p>
-
 <h3 id="data">Data</h3>
 
 <p><img src="/img/data.png" alt="Data Circle" title="Data" /></p>
@@ -216,7 +223,7 @@ array. D3 will use it to join with the selection. A <code>key</code> parameter c
 
 <p><img src="/img/join.png" alt="Join Circle" title="Data Join" /></p>
 
-<p>When you call <code>data()</code> function, D3 looks at current selection and compare with the data you provide, for each overlapped selection group, datum is binded directly to DOM node <code>__data__</code> property, producing a new selection select all updated nodes. The inner circle above shows the returned updated selection.</p>
+<p>When you call <code>data</code> function, D3 looks at current selection and compare with the data you provide, for each overlapped selection group, datum is binded directly to DOM node <code>__data__</code> property, producing a new selection select all updated nodes. The inner circle above shows the returned updated selection.</p>
 
 <p>Any excessive data provided are used to create new EnterNodes, bind datum to each node.</p>
 
@@ -233,7 +240,7 @@ array. D3 will use it to join with the selection. A <code>key</code> parameter c
 
 <h3 id="example">Example</h3>
 
-<p>Let&rsquo;s take an example, you can also find it in <a href="https://jsfiddle.net/jxie/a9c5epf7/">jsfiddle</a>.</p>
+<p>Let&rsquo;s take an example, you can also play with it in <a href="https://jsfiddle.net/jxie/a9c5epf7/">jsfiddle</a>.</p>
 
 <pre><code>1  var matrix = [
 2    [11975,  5871, 8916, 2868],

@@ -17,7 +17,7 @@
       <pubDate>Mon, 04 Jun 2018 15:52:10 -0700</pubDate>
       
       <guid>https://ts-xie.github.io/post/understanding-d3-data-join/</guid>
-      <description>Intro D3.js has simple but powerful APIs that allows us to do data driven development, creating and modifying DOM elements based on data change. All thanks to the design of D3 selection and data join. Here I&amp;rsquo;ll explain how D3 data join work behind the scenes. Also check out Thinking with Joins, a great explanation from Mike Bostock, if you haven&amp;rsquo;t yet.
+      <description>Intro D3.js has simple but powerful APIs that allows us to do data driven development, creating and modifying DOM elements based on data change. All thanks to the design of D3 selection and data join. Here I&amp;rsquo;ll explain how D3 data join works behind the scenes. Also check out Thinking with Joins, a great explanation from Mike Bostock, if you haven&amp;rsquo;t yet.
 Selection A selection is groups of selected elements.</description>
     </item>
     
