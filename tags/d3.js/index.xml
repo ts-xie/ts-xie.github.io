@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>D3.js on Minimal</title>
+    <link>https://ts-xie.github.io/tags/d3.js/</link>
+    <description>Recent content in D3.js on Minimal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 Jun 2018 15:52:10 -0700</lastBuildDate>
+    
+	<atom:link href="https://ts-xie.github.io/tags/d3.js/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Understanding D3 Data Join</title>
+      <link>https://ts-xie.github.io/post/understanding-d3-data-join/</link>
+      <pubDate>Mon, 04 Jun 2018 15:52:10 -0700</pubDate>
+      
+      <guid>https://ts-xie.github.io/post/understanding-d3-data-join/</guid>
+      <description>Intro D3.js has simple but powerful APIs that allows us to do data driven development, creating and modifying DOM elements based on data change. All thanks to the design of D3 selection and data join. Here I&amp;rsquo;ll explain how D3 data join work behind the scenes. Also check out Thinking with Joins, a great explanation from Mike Bostock, if you haven&amp;rsquo;t yet.
+Selection A selection is groups of selected elements.</description>
+    </item>
+    
+  </channel>
+</rss>

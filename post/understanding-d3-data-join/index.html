@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+         
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Understanding D3 Data Join</title>
+        
+        <style>
+
+    html body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: white;
+    }
+
+    :root {
+        --accent: red;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="https://ts-xie.github.io/css/main.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css"> 
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ 
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script> 
+
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
+ <meta name="generator" content="Hugo 0.36" />
+        
+
+        
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119780878-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+
+          gtag('config', 'UA-119780878-1');
+        </script>
+        
+    </head>
+
+    
+    
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    
+
+    <body>
+         
+        <nav class="navbar navbar-default navbar-fixed-top">
+
+            <div class="container">
+
+                <div class="navbar-header">
+
+                    <a class="navbar-brand visible-xs" href="#">Understanding D3 Data Join</a>
+
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+
+                <div class="collapse navbar-collapse">
+
+                    
+                        <ul class="nav navbar-nav">
+                            
+                                <li><a href="/">Home</a></li>
+                            
+                                <li><a href="/post/">Posts</a></li>
+                            
+                                <li><a href="/project/">Projects</a></li>
+                            
+                        </ul>
+                    
+
+                    
+                        <ul class="nav navbar-nav navbar-right">
+                            
+                                <li class="navbar-icon"><a href="mailto:tsblog@gmail.com"><i class="fa fa-envelope-o"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://github.com/ts-xie/"><i class="fa fa-github"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://twitter.com/jasonx3023/"><i class="fa fa-twitter"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/jasonx3023/"><i class="fa fa-linkedin"></i></a></li>
+                            
+                                <li class="navbar-icon"><a href="https://stackoverflow.com/users/5326588/mengo?tab=profile"><i class="fa fa-stack-overflow"></i></a></li>
+                            
+                        </ul>
+                    
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+<main>
+
+    <div class="item">
+
+    
+    
+    
+
+    
+    
+
+    <h4><a href="/post/understanding-d3-data-join/">Understanding D3 Data Join</a></h4>
+    <h5>June 4, 2018</h5>
+    
+    <a href="https://ts-xie.github.io/tags/d3.js"><kbd class="item-tag">d3.js</kbd></a>
+    
+
+</div>
+
+
+    <br> <div class="text-justify">
+
+<h3 id="intro">Intro</h3>
+
+<p>D3.js has simple but powerful APIs that allows us to do data driven development, creating and modifying DOM elements based on data change. All thanks to the design of D3 selection and data join. Here I&rsquo;ll explain how D3 data join work behind the scenes. Also check out <a href="https://bost.ocks.org/mike/join/">Thinking with Joins</a>, a great explanation from Mike Bostock, if you haven&rsquo;t yet.</p>
+
+<h3 id="selection">Selection</h3>
+
+<p><img src="/img/elements.png" alt="Selection Circle" title="Selection" /></p>
+
+<p>A selection is groups of selected elements. It is defined in D3 as a structure like this:</p>
+
+<pre><code class="language-javascript">export function Selection(groups, parents) {
+  this._groups = groups;
+  this._parents = parents;
+}
+</code></pre>
+
+<p>where <strong>groups</strong> references selected DOM elements and <strong>parents</strong> references previous selection nodes. The top level selection is the <code>documentElement</code>, and parent is <code>null</code>.</p>
+
+<pre><code class="language-javascript">export var root = [null];
+
+function selection() {
+  return new Selection([[document.documentElement]], root);
+}
+</code></pre>
+
+<p>There are many methods returns a new selection eg. <code>append</code>, <code>data</code>, <code>enter</code> etc. Other methods modify elements associated with a selection and returns current selection eg. <code>attr</code>, <code>style</code> etc.</p>
+
+<blockquote>
+<p>By convention, selection methods that return the current selection use four spaces of indent, while methods that return a new selection use only two. This helps reveal changes of context by making them stick out of the chain</p>
+</blockquote>
+
+<p>As D3 suggested, we should indent by selection accordingly for better readability.</p>
+
+<pre><code class="language-javascript">d3.select(&quot;body&quot;)
+  .append(&quot;svg&quot;)
+    .attr(&quot;width&quot;, 960)
+    .attr(&quot;height&quot;, 500)
+  .append(&quot;g&quot;)
+    .attr(&quot;transform&quot;, &quot;translate(20,20)&quot;)
+  .append(&quot;rect&quot;)
+    .attr(&quot;width&quot;, 920)
+    .attr(&quot;height&quot;, 460);
+</code></pre>
+
+<p>There is a common pitfall that <code>select</code> and <code>selectAll</code> behave differently in grouping. <code>select</code> preserves the existing grouping, whereas <code>selectAll</code> creates a new grouping. For more details check out Mike Bostock article <a href="https://bost.ocks.org/mike/nest/">Nested Selections</a>.</p>
+
+<h3 id="data">Data</h3>
+
+<p><img src="/img/data.png" alt="Data Circle" title="Data" /></p>
+
+<p>Data is simply the data that you want to visualize, it has to be an array or a function that returns an
+array. D3 will use it to join with the selection. A <code>key</code> parameter can be provided to tell D3 whether to use array index or <code>key</code> when joining data.</p>
+
+<h3 id="data-join">Data Join</h3>
+
+<p><img src="/img/join.png" alt="Join Circle" title="Data Join" /></p>
+
+<p>When you call <code>data()</code> function, D3 looks at current selection and compare with the data you provide, for each overlapped selection group, datum is binded directly to DOM node <code>__data__</code> property, producing a new selection select all updated nodes. The inner circle above shows the returned updated selection.</p>
+
+<p>Any excessive data provided are used to create new EnterNodes, bind datum to each node.</p>
+
+<pre><code>export function EnterNode(parent, datum) {
+  this.ownerDocument = parent.ownerDocument;
+  this.namespaceURI = parent.namespaceURI;
+  this._next = null;
+  this._parent = parent;
+  this.__data__ = datum;
+}
+</code></pre>
+
+<p>Likewise, any excessive elements selected are pushed to exit selection. Calling <code>enter()</code> <code>exit()</code> returns corresponding enter selection and exit selection. The <code>parent</code> property of EnterNode is inherited from previous selection, which is used for later DOM operation like <code>append</code>, <code>select</code>.</p>
+
+<h3 id="example">Example</h3>
+
+<pre><code>1  var matrix = [
+2    [11975,  5871, 8916, 2868],
+3    [ 1951, 10048, 2060, 6171],
+4    [ 8010, 16145, 8090, 8045],
+5    [ 1013,   990,  940, 6907]
+6  ];
+7
+8  var tr = d3.select(&quot;body&quot;)
+9             .append(&quot;table&quot;)
+10            .selectAll(&quot;tr&quot;)
+11            .data(matrix)
+12            .enter()
+13            .append(&quot;tr&quot;);
+14
+15 var td = tr.selectAll(&quot;td&quot;)
+16            .data(function(d) { return d; })
+17            .enter()
+18            .append(&quot;td&quot;)
+19              .text(function(d) { return d; });
+</code></pre>
+
+<ul>
+<li>line 8:  Returns a selection select <code>body</code> element.</li>
+<li>line 9:  Append <code>table</code> element to <code>body</code> and returns new selection select <code>table</code> element.</li>
+<li>line 10: Returns an empty selection.</li>
+<li>line 11: Produce an enter group with four EnterNodes associate with first dimensional data.</li>
+<li>line 12: Returns a new selection select the enter group.</li>
+<li>line 13: Append four <code>tr</code> elements from parent selection&rsquo;s <code>table</code> element. Returns <code>tr</code> selection.</li>
+<li>line 15: Returns empty selection.</li>
+<li>line 16: Use the data attached from parent selection <code>tr</code> element, and create EnterNodes with second dimensional data attached.</li>
+<li>line 17: Returns a new selection select the enter group from last step.</li>
+<li>line 18: Append four <code>td</code> element in <code>tr</code>. Returns <code>td</code> selection.</li>
+<li>line 19: Update each <code>td</code> element inner text with associated data.</li>
+</ul>
+</div>
+
+    
+    
+
+    
+
+    
+
+        <h4 class="page-header">Comments</h4>
+
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ts-xie" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+
+</main>
+
+        <footer>
+
+            <p class="copyright text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a></p>
+
+        </footer>
+       
+    </body>
+
+</html>
+
