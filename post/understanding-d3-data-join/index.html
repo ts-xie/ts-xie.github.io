@@ -184,7 +184,7 @@ function selection() {
 }
 </code></pre>
 
-<p>Method <code>select</code> and <code>selectAll</code> will return a sub selection based on previous selection. But they behave differently in grouping. <code>select</code> preserves the existing grouping, whereas <code>selectAll</code> creates a new grouping. For more details check out Mike Bostock article <a href="https://bost.ocks.org/mike/nest/">Nested Selections</a>.</p>
+<p>Method <code>select</code> and <code>selectAll</code> returns a sub selection based on previous selection. But they behave differently in grouping. <code>select</code> preserves the existing grouping, whereas <code>selectAll</code> creates a new grouping. For more details check out Mike Bostock article <a href="https://bost.ocks.org/mike/nest/">Nested Selections</a>.</p>
 
 <p>Two dimensional array structure for groups can help to build hierarchical selection. For example.</p>
 
@@ -217,7 +217,7 @@ function selection() {
 <p><img src="/img/data.png" alt="Data Circle" title="Data" /></p>
 
 <p>Data is simply the data that you want to visualize, it has to be an array or a function that returns an
-array. D3 will use it to join with the selection. A <code>key</code> parameter can be provided to tell D3 whether to use array index or <code>key</code> when joining data.</p>
+array. D3 will use it to join with the selection. A <code>key</code> parameter can be provided to tell D3 whether to use array index or <code>key</code> when <a href="https://github.com/d3/d3-selection#selection_data">joining data</a>.</p>
 
 <h3 id="data-join">Data Join</h3>
 
@@ -240,7 +240,7 @@ array. D3 will use it to join with the selection. A <code>key</code> parameter c
 
 <h3 id="example">Example</h3>
 
-<p>Let&rsquo;s take an example, you can also play with it in <a href="https://jsfiddle.net/jxie/a9c5epf7/">jsfiddle</a>.</p>
+<p>Let&rsquo;s take an example, you can also play with it in <a href="https://jsfiddle.net/jxie/a9c5epf7/">here</a>.</p>
 
 <pre><code>1  var matrix = [
 2    [11975,  5871, 8916, 2868],
@@ -272,8 +272,8 @@ array. D3 will use it to join with the selection. A <code>key</code> parameter c
 <li>line 13: Append four <code>tr</code> elements from parent selection&rsquo;s <code>table</code> element. Returns <code>tr</code> selection.</li>
 <li>line 15: Returns empty selection.</li>
 <li>line 16: Use the data attached from parent selection <code>tr</code> element, and create EnterNodes with second dimensional data attached.</li>
-<li>line 17: Returns a new selection select the enter group from last step.</li>
-<li>line 18: Append four <code>td</code> element in <code>tr</code>. Returns <code>td</code> selection.</li>
+<li>line 17: Returns a new selection select the enter group.</li>
+<li>line 18: Append four <code>td</code> element in each <code>tr</code> group. Returns <code>td</code> selection.</li>
 <li>line 19: Update each <code>td</code> element inner text with associated data.</li>
 </ul>
 </div>
