@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Frontend on Minimal</title>
+    <link>https://ts-xie.github.io/tags/frontend/</link>
+    <description>Recent content in Frontend on Minimal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Aug 2018 16:53:22 -0700</lastBuildDate>
+    
+	<atom:link href="https://ts-xie.github.io/tags/frontend/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Battle Between Angular and Vue</title>
+      <link>https://ts-xie.github.io/post/the-battle-between-angular-and-vue/</link>
+      <pubDate>Sun, 26 Aug 2018 16:53:22 -0700</pubDate>
+      
+      <guid>https://ts-xie.github.io/post/the-battle-between-angular-and-vue/</guid>
+      <description>Personally, I don’t mind to switch frameworks because each one has its pros and cons, and I always like to try new techs and learn from it. I’ve used jQuery, Backbone, Angular1, Vue.js so far, and really you can see how frontend evolve so fast and those frameworks and concepts make frontend development much easier than before.
+Angular is a great framework and introduced two day data binding, dependency injection, modularization etc.</description>
+    </item>
+    
+  </channel>
+</rss>
