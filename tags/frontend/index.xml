@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Frontend on blog</title>
+    <title>Frontend on kiwii</title>
     <link>https://ts-xie.github.io/tags/frontend/</link>
-    <description>Recent content in Frontend on blog</description>
+    <description>Recent content in Frontend on kiwii</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 26 Aug 2018 16:53:22 -0700</lastBuildDate>
