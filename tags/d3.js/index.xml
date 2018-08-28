@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>D3.js on Hello, World!</title>
+    <title>D3.js on blog</title>
     <link>https://ts-xie.github.io/tags/d3.js/</link>
-    <description>Recent content in D3.js on Hello, World!</description>
+    <description>Recent content in D3.js on blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 04 Jun 2018 15:52:10 -0700</lastBuildDate>
