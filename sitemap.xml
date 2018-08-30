@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ts-xie.github.io/about/</loc>
+    <lastmod>2018-08-29T23:24:55-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ts-xie.github.io/post/the-battle-between-angular-and-vue/</loc>
     <lastmod>2018-08-26T16:53:22-07:00</lastmod>
   </url>
@@ -77,7 +82,7 @@
   
   <url>
     <loc>https://ts-xie.github.io/</loc>
-    <lastmod>2018-08-26T16:53:22-07:00</lastmod>
+    <lastmod>2018-08-29T23:24:55-07:00</lastmod>
     <priority>0</priority>
   </url>
   
