@@ -1,0 +1,24 @@
+.navbar {
+  background-color: #f8f8f8;
+}
+
+.navbar .level-item a:link, .navbar .level-item a:visited, .navbar .level-item a:hover {
+  color: #777;
+  text-decoration: none;
+}
+
+.navbar:before, .navbar:after, .container:before, .container:after {
+  content: none;
+}
+
+.navbar .level-item:hover {
+  cursor: pointer;
+}
+
+.navbar .level-item:hover svg[role="img"] {
+  fill: var(--accent);
+}
+
+.navbar .level-item:hover svg.feather-mail, .navbar .level-item:hover svg.feather-music {
+  stroke: var(--accent);
+}
