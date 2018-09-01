@@ -13,6 +13,11 @@
   </url>
   
   <url>
+    <loc>https://ts-xie.github.io/post/move-away-from-jwt/</loc>
+    <lastmod>2018-08-22T22:54:12-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ts-xie.github.io/post/understanding-d3-data-join/</loc>
     <lastmod>2018-06-04T15:52:10-07:00</lastmod>
   </url>
@@ -63,6 +68,12 @@
   </url>
   
   <url>
+    <loc>https://ts-xie.github.io/</loc>
+    <lastmod>2018-08-29T23:24:55-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ts-xie.github.io/post/</loc>
     <lastmod>2018-08-26T16:53:22-07:00</lastmod>
     <priority>0</priority>
@@ -77,12 +88,6 @@
   <url>
     <loc>https://ts-xie.github.io/tags/</loc>
     <lastmod>2018-05-21T12:10:04-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ts-xie.github.io/</loc>
-    <lastmod>2018-08-29T23:24:55-07:00</lastmod>
     <priority>0</priority>
   </url>
   

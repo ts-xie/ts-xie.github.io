@@ -5,7 +5,7 @@
      
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Framework</title>
+    <title>Move Away From JWT</title>
      <style>
 
     html body {
@@ -66,9 +66,7 @@
 <script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
 
 <script type="text/javascript" src="/js/baffle.min.js"></script>
- <meta name="generator" content="Hugo 0.36" /> 
-    <link href="https://ts-xie.github.io/tags/framework/index.xml" rel="alternate" type="application/rss+xml" title="Home" />
-    <link href="https://ts-xie.github.io/tags/framework/index.xml" rel="feed" type="application/rss+xml" title="Home" />  
+ <meta name="generator" content="Hugo 0.36" />  
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119780878-1"></script>
     <script>
@@ -120,8 +118,10 @@
         </div>
     </nav>
 
-<main>
-    <p class="is-size-3">Framework</p>  <div class="item">
+
+<main class="content">
+
+    <div class="item">
 
     
     
@@ -130,18 +130,91 @@
     
     
 
-    <p class="is-size-5"><a href="/post/the-battle-between-angular-and-vue/">The Battle Between Angular and Vue</a></p>
-    <p>August 26, 2018</p>
-    
-    <a href="https://ts-xie.github.io/tags/frontend"><kbd class="item-tag">frontend</kbd></a>
-    
-    <a href="https://ts-xie.github.io/tags/framework"><kbd class="item-tag">framework</kbd></a>
+    <p class="is-size-5"><a href="/post/move-away-from-jwt/">Move Away From JWT</a></p>
+    <p>August 22, 2018</p>
     
 
 </div>
- 
+
+
+    <br> <div class="text-justify">
+
+<h4 id="tl-dr">TL;DR</h4>
+
+<p>JWT went really hot since introduced and many companies has adopt it and so do we. When I first looked at JWT, the selling points feels so right that can magically solve our problems. Then soon after we changed from old fashion session cookie authentication to JWT, problems rises and I realized maybe it was a bad idea.</p>
+
+<h4 id="hard-to-invalidate-single-token">Hard to invalidate single token</h4>
+
+<p>With stateless JWT, there is not much you can do to invalidate a compromised token. You can either rotate server secret, which means <em>ALL</em> of your user will be logged out immediately, or set a fine <code>exp</code> claim which hope it is long enough to not negate user experience but short enough so that attacker don&rsquo;t have enough time to compromise user account.</p>
+
+<h4 id="it-is-not-more-secure">It is not (more) secure</h4>
+
+<p>Use local storage to store JWT token is giving up all security features supported by browser like <code>HttpOnly</code>, <code>Secure</code>, <code>SameSite</code>. Both XSS attack and MITM attack can easily steal user token, which leave all the work to ourselves to prevent it happening without browsers help.</p>
+
+<h4 id="it-does-not-free-space">It does not free space</h4>
+
+<p>True we don&rsquo;t need a session table to store and look up user sessions, but the data is still there, it is base64 encoded, transmitted through the network with <em>every</em> request.</p>
+
+<h4 id="it-is-not-so-fast">It is not so fast</h4>
+
+<p>The speed of validating a token depends on the hashing algorithm we choose and is CPU-intensive, instead we can read from an indexed database table or a caching system like memcached or redis.</p>
+
+<h4 id="horizontal-scale">Horizontal scale</h4>
+
+<p>It is easier to horizontally scale JWT authentication service, but it only works for stateless token. Although in addition to scaling, you need to manage secret key distribution, compromise recovery, environment differences and so on.</p>
+
+<h4 id="summary">Summary</h4>
+
+<p>Above I listed some of my misconceptions I had with JWT, it took me half a year to realize it is not suitable to use for user session authentication, it is meant for truly stateless services!</p>
+
+<h4 id="references">References</h4>
+
+<p><a href="https://en.wikipedia.org/wiki/JSON_Web_Token">https://en.wikipedia.org/wiki/JSON_Web_Token</a></p>
+
+<p><a href="https://tools.ietf.org/html/rfc7519">https://tools.ietf.org/html/rfc7519</a></p>
+
+<p><a href="http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/">http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/</a></p>
+
+<p><a href="https://github.com/shieldfy/API-Security-Checklist/issues/6">https://github.com/shieldfy/API-Security-Checklist/issues/6</a></p>
+
+<p><a href="https://jwt.io/">https://jwt.io/</a></p>
+</div>
+
+    
+    
+
+    
+
+    
+
+        <h4 class="page-header">Comments</h4>
+
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ts-xie" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+
 </main>
-         <footer>
+
+        <footer>
 
             <p class="copyright text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a></p>
 

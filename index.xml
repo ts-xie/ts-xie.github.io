@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kiwii</title>
+    <title>Home</title>
     <link>https://ts-xie.github.io/</link>
-    <description>Recent content on kiwii</description>
+    <description>Recent content on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 29 Aug 2018 23:24:55 -0700</lastBuildDate>
@@ -32,6 +32,16 @@ About writing Writing blog is an interesting process to me. At first, I always s
       <guid>https://ts-xie.github.io/post/the-battle-between-angular-and-vue/</guid>
       <description>Personally, I don’t mind to switch frameworks because each one has its pros and cons, and I always like to try new techs and learn from it. I’ve used jQuery, Backbone, Angular1, Vue.js so far, and really you can see how frontend evolve so fast and those frameworks and concepts make frontend development much easier than before.
 Angular is a great framework and introduced two day data binding, dependency injection, modularization etc.</description>
+    </item>
+    
+    <item>
+      <title>Move Away From JWT</title>
+      <link>https://ts-xie.github.io/post/move-away-from-jwt/</link>
+      <pubDate>Wed, 22 Aug 2018 22:54:12 -0700</pubDate>
+      
+      <guid>https://ts-xie.github.io/post/move-away-from-jwt/</guid>
+      <description>TL;DR JWT went really hot since introduced and many companies has adopt it and so do we. When I first looked at JWT, the selling points feels so right that can magically solve our problems. Then soon after we changed from old fashion session cookie authentication to JWT, problems rises and I realized maybe it was a bad idea.
+Hard to invalidate single token With stateless JWT, there is not much you can do to invalidate a compromised token.</description>
     </item>
     
     <item>
