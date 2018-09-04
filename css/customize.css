@@ -1,5 +1,14 @@
 .navbar {
   background-color: #f8f8f8;
+  border-color: #e7e7e7;
+}
+
+.navbar .navbar-brand.navbar-brand-override {
+  float: inherit;
+  height: inherit;
+  padding: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 .navbar .level-item a:link, .navbar .level-item a:visited, .navbar .level-item a:hover {
