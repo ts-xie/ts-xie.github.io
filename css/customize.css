@@ -31,3 +31,8 @@
 .navbar .level-item:hover svg.feather-mail, .navbar .level-item:hover svg.feather-music {
   stroke: var(--accent);
 }
+
+.container.container-override {
+  padding-left: inherit;
+  padding-right: inherit;
+}
