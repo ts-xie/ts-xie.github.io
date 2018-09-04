@@ -40,8 +40,8 @@ Angular is a great framework and introduced two day data binding, dependency inj
       <pubDate>Wed, 22 Aug 2018 22:54:12 -0700</pubDate>
       
       <guid>https://ts-xie.github.io/post/move-away-from-jwt/</guid>
-      <description>TL;DR JWT went really hot since introduced and many companies has adopt it and so do we. When I first looked at JWT, the selling points feels so right that can magically solve our problems. Then soon after we changed from old fashion session cookie authentication to JWT, problems rises and I realized maybe it was a bad idea.
-Hard to invalidate single token With stateless JWT, there is not much you can do to invalidate a compromised token.</description>
+      <description>JWT went really hot since introduced and many companies has adopt it and so do we. When I first looked at JWT, the selling points feels so right that can magically solve our problems, but the reality doesn&amp;rsquo;t seem so.
+It took me few weeks to make the transition from old fashion session cookie to JWT authentication, but the process is pretty smooth. We were pretty happy with the result until we want to invalidate a single token.</description>
     </item>
     
     <item>

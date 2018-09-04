@@ -139,33 +139,39 @@
 
     <br> <div class="text-justify">
 
-<h4 id="tl-dr">TL;DR</h4>
+<p>JWT went really hot since introduced and many companies has adopt it and so do we. When I first looked at JWT, the selling points feels so right that can magically solve our problems, but the reality doesn&rsquo;t seem so.</p>
 
-<p>JWT went really hot since introduced and many companies has adopt it and so do we. When I first looked at JWT, the selling points feels so right that can magically solve our problems. Then soon after we changed from old fashion session cookie authentication to JWT, problems rises and I realized maybe it was a bad idea.</p>
+<p>It took me few weeks to make the transition from old fashion session cookie to JWT authentication, but the process is pretty smooth. We were pretty happy with the result until we want to invalidate a single token. There are many reasons why we want to do that, we want to invalid a compromised token to mitigate potential damage, we want to invalid old token when user state has changed, like password, access permission or log out. With stateless token, there is no easy way to do it. Either you can rotate secret, which will logout <em>all</em> users immediately, or set a short expiration time and wait it to expire. Either way, you don&rsquo;t have full control of single user session.</p>
 
-<h4 id="hard-to-invalidate-single-token">Hard to invalidate single token</h4>
+<p>The approach we take is make it semi stateful. We save a user id in the payload, and hash some user states into the secret. Next time server receives a token, it looks up database with user id, use user states to generate secret and then validate the token with this secret. So every time user state change will create a new secret and the old token will be invalidated. Well, it does do the job, but wait, why now it looks much like a session cookie?</p>
 
-<p>With stateless JWT, there is not much you can do to invalidate a compromised token. You can either rotate server secret, which means <em>ALL</em> of your user will be logged out immediately, or set a fine <code>exp</code> claim which hope it is long enough to not negate user experience but short enough so that attacker don&rsquo;t have enough time to compromise user account.</p>
+<p>Well, now the validation process is much like session cookie, why not compare them.</p>
 
-<h4 id="it-is-not-more-secure">It is not (more) secure</h4>
+<h4 id="validation">Validation</h4>
 
-<p>Use local storage to store JWT token is giving up all security features supported by browser like <code>HttpOnly</code>, <code>Secure</code>, <code>SameSite</code>. Both XSS attack and MITM attack can easily steal user token, which leave all the work to ourselves to prevent it happening without browsers help.</p>
+<pre><code>// session cookie
+1. getSessionID
+2. findSession
 
-<h4 id="it-does-not-free-space">It does not free space</h4>
+// JWT
+1. getToken
+2. generateSecretFromStates
+3. validate
+</code></pre>
 
-<p>True we don&rsquo;t need a session table to store and look up user sessions, but the data is still there, it is base64 encoded, transmitted through the network with <em>every</em> request.</p>
+<p>The first two steps are similar to both but JWT has one more step <code>validate</code>, where we need to run CPU intensive hashing function and the performance is based on how secure hash algorithm we choose.</p>
 
-<h4 id="it-is-not-so-fast">It is not so fast</h4>
+<h4 id="session-expire">Session expire</h4>
 
-<p>The speed of validating a token depends on the hashing algorithm we choose and is CPU-intensive, instead we can read from an indexed database table or a caching system like memcached or redis.</p>
+<p>Both of them has an expiration clam, but when a cookie is expired, browser will delete it and won&rsquo;t be submitted to server, so we don&rsquo;t need to do any extra validation at all!</p>
 
-<h4 id="horizontal-scale">Horizontal scale</h4>
+<h4 id="security">Security</h4>
 
-<p>It is easier to horizontally scale JWT authentication service, but it only works for stateless token. Although in addition to scaling, you need to manage secret key distribution, compromise recovery, environment differences and so on.</p>
+<p>It does look more secure with JWT since it is cryptographically sighed, but that is not unique to JWT, because you can sign your session cookie too! However, using JWT instead of cookie is giving up all security features supported by browser like <code>HttpOnly</code>, <code>Secure</code>, <code>SameSite</code>. Both XSS attack and MITM attack can easily steal user token 😈, I want to have some good night sleep not worrying about those problems.</p>
 
 <h4 id="summary">Summary</h4>
 
-<p>Above I listed some of my misconceptions I had with JWT, it took me half a year to realize it is not suitable to use for user session authentication, it is meant for truly stateless services!</p>
+<p>I&rsquo;m not saying JWT is bad, but it is bad to use for sessions. Session cookie has it&rsquo;s own issues, but it is being used and tested for years. I&rsquo;d like to see new options that can replace it, but until then, it is still the best option to use.</p>
 
 <h4 id="references">References</h4>
 
