@@ -193,7 +193,7 @@
 
 <h4 id="summary">Summary</h4>
 
-<p>I&rsquo;m not saying JWT is bad, but it is bad to use for sessions. Although session cookie has it&rsquo;s own issues, it is being used and tested for years. I&rsquo;d like to see new options that can replace it, until then, it is still the best option to use.</p>
+<p>I&rsquo;m not saying JWT is bad, but it is bad to use for sessions. With stateful session on the server side, we can easily manage user experience. For example, when we want only one user agent to access our service for security purpose, or we can also limit number of sessions one user can have at the same time, like what Netflix does etc. Although session cookie has it&rsquo;s own issues, it is being used and tested for years. I&rsquo;d like to see new options, until then, it is probably still the best option to use.</p>
 
 <h4 id="references">References</h4>
 
@@ -246,7 +246,8 @@
     <p class="copyright text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a></p>
 </footer>
 
-<script src="https://ts-xie.github.io/js/navbar.js"></script> 
+  <script src="https://ts-xie.github.io/js/navbar.js"></script>
+
 
     </body>
 

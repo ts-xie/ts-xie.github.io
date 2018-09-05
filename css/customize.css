@@ -36,3 +36,13 @@
   padding-left: inherit;
   padding-right: inherit;
 }
+
+.home {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  -webkit-align-items: $value;
+}

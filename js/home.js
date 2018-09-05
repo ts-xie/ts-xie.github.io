@@ -1,4 +1,4 @@
-var b = baffle('.intro h1', {
+var b = baffle('.home h1', {
     characters: 'HWhelord▒░',
     speed: 75
 });
