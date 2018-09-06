@@ -11,7 +11,7 @@
   line-height: inherit;
 }
 
-.navbar .level-item a:link, .navbar .level-item a:visited, .navbar .level-item a:hover {
+.navbar .navbar-item a:link, .navbar .navbar-item a:visited, .navbar .navbar-item a:hover {
   color: #777;
   text-decoration: none;
 }
@@ -20,15 +20,15 @@
   content: none;
 }
 
-.navbar .level-item:hover {
+.navbar .navbar-item:hover {
   cursor: pointer;
 }
 
-.navbar .level-item:hover svg[role="img"] {
+.navbar .navbar-item:hover svg[role="img"] {
   fill: var(--accent);
 }
 
-.navbar .level-item:hover svg.feather-mail, .navbar .level-item:hover svg.feather-music {
+.navbar .navbar-item:hover svg.feather-mail, .navbar .navbar-item:hover svg.feather-music {
   stroke: var(--accent);
 }
 
