@@ -5,7 +5,7 @@
      
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The Battle Between Angular and Vue</title>
+    <title>Vue Reactivity in Depth</title>
      <style>
 
     html body {
@@ -152,30 +152,227 @@
     
     
 
-    <p class="is-size-5"><a href="/post/the-battle-between-angular-and-vue/">The Battle Between Angular and Vue</a></p>
-    <p>August 26, 2018</p>
+    <p class="is-size-5"><a href="/post/reactive-vue/">Vue Reactivity in Depth</a></p>
+    <p>October 1, 2018</p>
     
     <a href="https://ts-xie.github.io/tags/frontend"><kbd class="item-tag">frontend</kbd></a>
     
     <a href="https://ts-xie.github.io/tags/framework"><kbd class="item-tag">framework</kbd></a>
     
+    <a href="https://ts-xie.github.io/tags/vue.js"><kbd class="item-tag">vue.js</kbd></a>
+    
 
 </div>
 
 
-    <br> <div class="text-justify"><p>Personally, I don’t mind to switch frameworks because each one has its pros and cons, and I always like to try new techs and learn from it. I’ve used jQuery, Backbone, Angular1, Vue.js so far, and really you can see how frontend evolve so fast and those frameworks and concepts make frontend development much easier than before.</p>
+    <br> <div class="text-justify">
 
-<p>Angular is a great framework and introduced two day data binding, dependency injection, modularization etc. And it was the hot choice after Backbone because of those, so lot’s of developers adopt it and made many successful projects. Vue, on the other hand, is later borned, and not many developers look at it in the first place.</p>
+<p>The <a href="https://vuejs.org/v2/guide/reactivity.html">official document</a> has a good high level explanation on how Vue tracks reactive data, and a pretty graph.</p>
 
-<p>I still remember when me with my teammates sit together discussing which framework to choose between Angular/React/Vue. At that time, Vue was not really on the table. I did some googling, then wrote a simple todo app with each Angular and React(not Vue). I made my point of why I dislike React way of doing things. Anyway, the conclusion after the meeting is Angular wins the battle.</p>
+<p><img src="/img/vue/vue-reactivity.png"></p>
 
-<p>Although we were all happy with finally we made the decision, I start wondering why Vue is constantly at the top page of github trending project and more and more articles and blogs people are writing about it. I start look at Vue documentation and I really couldn’t stop reading it because it is so clean and detailed, and it shows how easy it is to use. After two hours of reading the whole doc(right, I did that), I changed my mind. Yes, I choose Vue over Angular just simply because of that. After, I told my teammates Vue is a great framework and I’m glad they are all supportive.</p>
+<p>Although for people who are curious about the details, I&rsquo;ll give it a try on explain it from my little understanding. We are going to walk through each component and explain how they interact step by step, so you should be able to understand the whole picture in the end.</p>
 
-<p>Okay, now I have a chance to choose again, how do I choose now? Well, I haven’t really use Angular 6 in production so I couldn’t really say much. And I think they both are great framework to work with. I’d like to build with both if possible. However, I’d say Vue is more suitable with our current situation. It is more flexible and easy learning curve. It is rather a library than a framework. Considering our UI is not so complex, I feel Angular is much an overkill.</p>
+<blockquote>
+<p>Note: The source code version for this post is 2.5.17. A new major version 3.0 is <a href="https://medium.com/the-vue-point/plans-for-the-next-iteration-of-vue-js-777ffea6fabf#ba44">announced</a> recently and the implementation will be changed in the update.</p>
+</blockquote>
 
-<p>Saying that, there is a deal breaker for Angular. That is Typescript. If you want to use Angular, you have to use Typescript. Well, it is a bundled sell. Typescript is created a while back, at that time, Javascript has not much features. Ever since ES6, Javascript become much more powerful. It’s not that promising to use Typescript anymore. Here I don&rsquo;t want to criticize Typescript and apparently a lot of people loves it, <a href="https://www.youtube.com/watch?v=M3BM9TB-8yA">including the creator of Node</a>. Personally I just don&rsquo;t like build things on top of language that is not supported natively, it&rsquo;s not only additional learning, but adding more layers will make things more complicated and bring more problems later on.</p>
+<!-- -->
 
-<p>In the end, let’s take a quick look at github. <a href="https://github.com/angular/angular">Angular</a> and <a href="https://github.com/vuejs/vue">Vue</a>. Comparing the stars and forks, I’d say the trend is towards Vue.</p>
+<blockquote>
+<p>Note: The code example in this post is over simplified and modified for easier understanding.</p>
+</blockquote>
+
+<h4 id="1-register-property-getter-and-setter">1. Register property getter and setter</h4>
+
+<p>All the magic starts from a javascript function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty</a>. During bootstrap, Vue defines custom getter/setter functions for each reactive property.</p>
+
+<pre><code>function defineReactive(obj, key) {
+  value = obj[key];
+  Object.defineProperty(obj, key, {
+    get() {
+      console.log('Getter is called!');
+      return value;
+    },
+    set(newValue) {
+      console.log('Setter is called!');
+      value = newValue;
+    }
+  });
+}
+</code></pre>
+
+<pre><code>const data = {
+  message: 'Hello World!'
+};
+
+defineReactive(data, 'message');
+data.message; // Getter is called!
+data.message = '你好世界!' // Setter is called!
+</code></pre>
+
+<p>Now we know we can run custom functions when a property updates, let&rsquo;s add some dependencies to our property.</p>
+
+<h4 id="2-dependency">2. Dependency</h4>
+
+<pre><code>class Dep {
+  static target = null;
+  this.subs = [];
+}
+</code></pre>
+
+<p>Notice that <code>Dep.target</code> is a static global object. It is used to <em>bind</em> the target with a property.
+<code>subs</code> stores an array of dependencies, we want to notify all dependencies when its property updates. Let&rsquo;s change our defineReactive function a little bit.</p>
+
+<pre><code>function defineReactive(obj, key) {
+  const dep = new Dep();
+  value = obj[key];
+  Object.defineProperty(obj, key, {
+    get() {
+      if (Dep.target) {
+        dep.subs.push(Dep.target);
+      }
+      return value;
+    },
+    set(newValue) {
+      dep.notify();
+      value = newValue;
+    }
+  });
+}
+</code></pre>
+
+<p>Here we initialized a <code>dep</code> instance so that each property can have its own dependencies. When the getter is called, whatever pushed to <code>Dep.target</code> will be added to its dependency list. When the setter is called, all dependencies will be notified.</p>
+
+<p>So what should we push to the <code>target</code> exactly? We want to set <code>computed</code> property, run <code>watch</code> function and re-render view whenever the its dependency updates. This is done by <code>Watcher</code>.</p>
+
+<h4 id="3-watcher">3. Watcher</h4>
+
+<pre><code>class Watcher {
+  constructor(customFunc) {
+    this.getter = customFunc;
+    this.value = this.get();
+  }
+
+  get() {
+    Dep.target = this;
+    const value = this.getter();
+    Dep.target = null;
+    this.value = value;
+    return this.value;
+  }
+}
+</code></pre>
+
+<p>A <code>Watcher</code> is a dependency with registered custom functions. When <code>wacher.get()</code> gets called, this watcher become the <code>target</code> and any property that is <em>touched</em> when evaluating the custom function, will push this watcher as its dependency. Next time that property updates, each watcher instance&rsquo;s custom function will re-evaluate. Let&rsquo;s add the <code>notify</code> function to our Dep class. It simply call custom function and resets watcher value.</p>
+
+<pre><code>class Dep {
+  notify() {
+    this.subs.forEach(sub =&gt; sub.get());
+  }
+}
+</code></pre>
+
+<p>Now we can do something interesting. Let&rsquo;s implement <code>computed</code> and <code>watch</code> properties:</p>
+
+<pre><code>data() {
+  return {
+    message: 'Hello',
+    reversed: 'olleH'
+  };
+},
+computed: {
+  longMessage() {
+    return this.message + ' world!';
+  }
+},
+watch: {
+  message() {
+    this.reversed = this.message.split('').reverse().join('');
+  }
+}
+
+// subscribe as a dependency to `message` property
+const watcher = new Watcher(vm.computed.longMessage);
+
+// add `longMessage` as a property to vue instance
+Object.defineProperty(vm, 'longMessage', {
+  get() {
+    // we don't need to run `watcher.get()` since it is called whenever depended property updates
+    return watcher.value;
+  }
+});
+
+// watch object is even simpler
+const watcher = new Watcher(vm.watch.message);
+</code></pre>
+
+<blockquote>
+<p>Note: it is not a good practice to use <code>watch</code> this way, use computed property instead. This example is just for explain how it works.</p>
+</blockquote>
+
+<h4 id="4-virtual-dom">4. Virtual DOM</h4>
+
+<p>Before we start talking about the render function used in Vue, we need to understand what is Virtual DOM. We know the real DOM element in the HTML is a tree structure referred as DOM tree.</p>
+
+<p><img src="/img/vue/dom-tree.png"></p>
+
+<p>Virtual DOM is simply a javascript object that represents a real DOM element. But why? Because DOM tree search and update is expansive. A search for example <code>document.querySelectorALL('.item')</code> will walk through the whole document. A component re-render <code>$('#container').html(component.render())</code> will destroy the sub tree and re-construct. With virtual DOM, all the operation is performed in the memory during runtime and eventually the minimum DOM update is patched to the document. In Vue, we call the virtual DOM <code>vnode</code> since it is a virtual node.</p>
+
+<h4 id="5-the-render-function">5. The render function</h4>
+
+<p>A render function is a function that creates a virtual DOM. For example:</p>
+
+<pre><code>// template
+&lt;div class=&quot;myClass&quot;&gt;{{ reactiveProp }}&lt;/div&gt;
+
+// compiles to
+function render() {
+  with(this) {
+    return _c('div', {
+      staticClass: &quot;myClass&quot;
+    }, [_v(_s(reactiveProp))])
+  }
+}
+</code></pre>
+
+<blockquote>
+<p>Note: Templates are pre-compiled during build process for production build, or compiled at run-time for the full build of Vue.</p>
+</blockquote>
+
+<p>You can try some templates yourself and see how Vue compiles it <a href="https://vuejs-tips.github.io/compiler/">here</a>. Don&rsquo;t need to worry about those symbols <code>_c</code> <code>_v</code> <code>_s</code> for now, they are just functions. At least from this function we can tell when <code>render</code> function is called, the getter of our reactive properties will be triggered, in fact, if you think about it, we can collect all the dependencies when we first render the view. It&rsquo;ll make sense the view itself is a watcher, indeed it has a special name <code>Render Watcher</code>.</p>
+
+<pre><code>new Watcher({
+  getter() {
+    vnode = vm.render();
+    vm.update(vnode);
+  }
+});
+</code></pre>
+
+<p>So during initial render, it <em>touch</em> each reactive properties&rsquo; getter function, then the render watcher is subscribed to corresponding properties as a dependency.</p>
+
+<h4 id="6-vnode-patch">6. VNode patch</h4>
+
+<p>Things should be much clear now, since your view depends on all the properties you used in the template, it will re-render whenever any property changes. Then an update is patched with the minimum DOM updates required. This patching algorithm Vue use is from a fork of <a href="https://github.com/snabbdom/snabbdom">snabbdom project</a>.</p>
+
+<h4 id="summary">Summary</h4>
+
+<p>Hopefully you are following along. If we go back to the graph in the beginning of this post, we can see the steps as follows:</p>
+
+<ul>
+<li>Register reactive data getter/setter</li>
+<li>Initial render &lsquo;touches&rsquo; data getter</li>
+<li>Collect watchers as data dependency</li>
+<li>Data modification triggers data setter</li>
+<li>Corresponding watchers are notified</li>
+<li>Render watcher is notified</li>
+<li>Virtual DOM re-render</li>
+<li>Diff patching</li>
+<li>Update DOM tree</li>
+</ul>
+
+<p>There are a lot more details and optimizations in Vue but we didn&rsquo;t cover here. That is left for the curious explorers. Thanks for the reading~</p>
 </div>
 
     
@@ -194,14 +391,12 @@
     
     
 
-    <p class="is-size-5"><a href="/post/reactive-vue/">Vue Reactivity in Depth</a></p>
-    <p>October 1, 2018</p>
+    <p class="is-size-5"><a href="/post/the-battle-between-angular-and-vue/">The Battle Between Angular and Vue</a></p>
+    <p>August 26, 2018</p>
     
     <a href="https://ts-xie.github.io/tags/frontend"><kbd class="item-tag">frontend</kbd></a>
     
     <a href="https://ts-xie.github.io/tags/framework"><kbd class="item-tag">framework</kbd></a>
-    
-    <a href="https://ts-xie.github.io/tags/vue.js"><kbd class="item-tag">vue.js</kbd></a>
     
 
 </div>

@@ -6,10 +6,20 @@
     <description>Recent content on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Aug 2018 23:24:55 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 01 Oct 2018 20:17:11 -0700</lastBuildDate>
     
 	<atom:link href="https://ts-xie.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vue Reactivity in Depth</title>
+      <link>https://ts-xie.github.io/post/reactive-vue/</link>
+      <pubDate>Mon, 01 Oct 2018 20:17:11 -0700</pubDate>
+      
+      <guid>https://ts-xie.github.io/post/reactive-vue/</guid>
+      <description>The official document has a good high level explanation on how Vue tracks reactive data, and a pretty graph.
+Although for people who are curious about the details, I&amp;rsquo;ll give it a try on explain it from my little understanding. We are going to walk through each component and explain how they interact step by step, so you should be able to understand the whole picture in the end.</description>
+    </item>
     
     <item>
       <title>About</title>
