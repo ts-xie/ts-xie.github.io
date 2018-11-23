@@ -5,7 +5,7 @@
      
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tags</title>
+    <title>v1.0.1</title>
      <style>
 
     html body {
@@ -59,9 +59,7 @@
 
 
 <script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
- <meta name="generator" content="Hugo 0.36" /> 
-    <link href="https://ts-xie.github.io/tags/index.xml" rel="alternate" type="application/rss+xml" title="Home" />
-    <link href="https://ts-xie.github.io/tags/index.xml" rel="feed" type="application/rss+xml" title="Home" />  
+ <meta name="generator" content="Hugo 0.36" />  
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119780878-1"></script>
     <script>
@@ -143,11 +141,9 @@
     </nav>
 
 
-<main>
+<main class="content">
 
-    <h2>Tags</h2>
-
-     <div class="item">
+    <div class="item">
 
     
     
@@ -156,99 +152,85 @@
     
     
 
-    <p class="is-size-5"><a href="/tags/d3.js/">D3.js</a></p>
-    <p>June 4, 2018</p>
-    <div class="tags">
-        <div class="container">
-            
-        </div>
-    </div>
-</div>
-  <div class="item">
-
-    
-    
-    
-
-    
-    
-
-    <p class="is-size-5"><a href="/tags/framework/">Framework</a></p>
-    <p>October 1, 2018</p>
-    <div class="tags">
-        <div class="container">
-            
-        </div>
-    </div>
-</div>
-  <div class="item">
-
-    
-    
-    
-
-    
-    
-
-    <p class="is-size-5"><a href="/tags/frontend/">Frontend</a></p>
-    <p>October 1, 2018</p>
-    <div class="tags">
-        <div class="container">
-            
-        </div>
-    </div>
-</div>
-  <div class="item">
-
-    
-    
-    
-
-    
-    
-
-    <p class="is-size-5"><a href="/tags/patch-note/">Patch Note</a></p>
+    <p class="is-size-5"><a href="/post/v1.0.1/">v1.0.1</a></p>
     <p>November 21, 2018</p>
     <div class="tags">
         <div class="container">
             
-        </div>
-    </div>
-</div>
-  <div class="item">
-
-    
-    
-    
-
-    
-    
-
-    <p class="is-size-5"><a href="/tags/programming/">Programming</a></p>
-    <p>May 30, 2018</p>
-    <div class="tags">
-        <div class="container">
+            <span class="tag">
+                <a href="https://ts-xie.github.io/tags/patch-note">patch note</a>
+            </span>
             
         </div>
     </div>
 </div>
- 
-
-</main>
 
 
+    <br> <div class="text-justify">
 
-<div class="pages">
+<p>Following are the improvements released in this patch:</p>
 
-     
-    <a class="icon pages-icon" href="/tags/page/2/" rel="next">
-        <i class="fa fa-arrow-right"></i>
-    </a>
-    
+<ul>
+<li>Support MacOS dark mode</li>
+<li>Better support for Safari/Firefox</li>
+<li>Local resource host</li>
+<li>Standardize Code highlight</li>
+</ul>
 
+<h5 id="support-macos-dark-mode">Support MacOS dark mode</h5>
+
+<p>A newly designed dark theme that works well in <code>Dark Mode</code> MacOS Mojave.</p>
+
+<p><img src="/img/compare.png" alt="light theme/dark theme" /></p>
+
+<p>Since it is not a standard technology yet. It will not work for browsers other than Safari. To try it yourself, download <a href="https://developer.apple.com/safari/download/">Safari Technology Preview</a> then open this site with it.</p>
+
+<h5 id="better-support-for-safari-firefox">Better support for Safari/Firefox</h5>
+
+<p>A new build system is developed to better support browser compatibility for Safari and Firefox. Now the user experience should be consistent between major browsers.</p>
+
+<h5 id="local-resource-host">Local resource host</h5>
+
+<p>Many static contents are now hosted locally to better support off-line experience and resolve content blocking issue.</p>
+
+<h5 id="standardize-code-highlight">Standardize code highlight</h5>
+
+<p>Now code highlight is standardized to <a href="https://github.com/highlightjs/highlight.js/blob/master/src/styles/atom-one-dark.css">atom one dark</a> style.</p>
 </div>
 
+    
+    
 
+    
+
+    
+
+        <h4 class="page-header">Comments</h4>
+
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ts-xie" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+
+</main>
 
 <footer>
     <p class="copyright text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a></p>
