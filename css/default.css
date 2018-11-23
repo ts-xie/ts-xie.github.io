@@ -6459,4 +6459,71 @@ label.panel-block {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
-/*# sourceMappingURL=bulma.css.map */
+.navbar {
+  background-color: #f8f8f8;
+  border-color: #e7e7e7; }
+  .navbar:before, .navbar:after {
+    content: none; }
+  .navbar .container:before, .navbar .container:after {
+    content: none; }
+  .navbar .container.container-override {
+    padding-left: inherit;
+    padding-right: inherit; }
+  .navbar .navbar-brand.navbar-brand-override {
+    float: inherit;
+    height: inherit;
+    padding: inherit;
+    font-size: inherit;
+    line-height: inherit; }
+  .navbar .navbar-item a:link, .navbar .navbar-item a:visited, .navbar .navbar-item a:hover {
+    color: #777;
+    text-decoration: none; }
+  .navbar .navbar-item a:hover {
+    cursor: pointer; }
+    .navbar .navbar-item a:hover svg[role="img"] {
+      fill: var(--accent);
+      fill: var(--accent); }
+    .navbar .navbar-item a:hover svg.feather-mail, .navbar .navbar-item a:hover svg.feather-music {
+      stroke: var(--accent);
+      stroke: var(--accent); }
+
+.home {
+  display: flex;
+  align-items: center; }
+
+@media (prefers-color-scheme: dark) {
+  html body {
+    background-color: #222222;
+    min-height: 100%;
+    height: auto;
+    color: white; }
+  .navbar {
+    background-color: #242424;
+    border-color: #101010; }
+    .navbar .navbar-item a:link, .navbar .navbar-item a:visited, .navbar .navbar-item a:hover {
+      color: #777;
+      text-decoration: none; }
+    .navbar .navbar-item:hover svg[role="img"] {
+      fill: #ff7600; }
+    .navbar .navbar-item:hover svg.feather-mail, .navbar .navbar-item:hover svg.feather-music {
+      stroke: #ff7600; }
+  .content h1,
+  .content h2,
+  .content h3,
+  .content h4,
+  .content h5,
+  .content h6 {
+    color: white; }
+  .content blockquote {
+    background-color: #333333; }
+  .tag:not(body) {
+    background-color: #4a4a4a; }
+  code {
+    color: #ff7600;
+    background-color: #101010; }
+  a:link, a:visited, a:hover {
+    color: #ff7600 !important; }
+  .title {
+    color: white; } }
+
+/*# sourceMappingURL=default.css.map */

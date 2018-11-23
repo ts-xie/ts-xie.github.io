@@ -24,19 +24,19 @@
 <link rel="stylesheet" href="https://ts-xie.github.io/css/main.css">
 
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+<link rel="stylesheet" href="https://ts-xie.github.io/vendor/googlefont.css">
 
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css"> 
+ <link rel="stylesheet" href="https://ts-xie.github.io/vendor/hljs-atom-one-dark.min.css"> 
 
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://ts-xie.github.io/vendor/bootstrap.min.css">
 
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://ts-xie.github.io/vendor/font-awesome.min.css">
 
 
- <link rel="stylesheet" href="https://ts-xie.github.io/css/bulma.css">  <link rel="stylesheet" href="https://ts-xie.github.io/css/fonts.css">  <link rel="stylesheet" href="https://ts-xie.github.io/css/customize.css"> 
+ <link rel="stylesheet" href="https://ts-xie.github.io/css/fonts.css">  <link rel="stylesheet" href="https://ts-xie.github.io/css/default.css"> 
  
 
 
@@ -154,14 +154,23 @@
 
     <p class="is-size-5"><a href="/post/reactive-vue/">Vue Reactivity in Depth</a></p>
     <p>October 1, 2018</p>
-    
-    <a href="https://ts-xie.github.io/tags/frontend"><kbd class="item-tag">frontend</kbd></a>
-    
-    <a href="https://ts-xie.github.io/tags/framework"><kbd class="item-tag">framework</kbd></a>
-    
-    <a href="https://ts-xie.github.io/tags/vue.js"><kbd class="item-tag">vue.js</kbd></a>
-    
-
+    <div class="tags">
+        <div class="container">
+            
+            <span class="tag">
+                <a href="https://ts-xie.github.io/tags/frontend">frontend</a>
+            </span>
+            
+            <span class="tag">
+                <a href="https://ts-xie.github.io/tags/framework">framework</a>
+            </span>
+            
+            <span class="tag">
+                <a href="https://ts-xie.github.io/tags/vue.js">vue.js</a>
+            </span>
+            
+        </div>
+    </div>
 </div>
 
 
@@ -169,7 +178,7 @@
 
 <p>The <a href="https://vuejs.org/v2/guide/reactivity.html">official document</a> has a good high level explanation on how Vue tracks reactive data, and a pretty graph.</p>
 
-<p><img src="/img/vue/vue-reactivity.png"></p>
+<p><img src="/img/vue/vue-reactivity.png" alt="vue reactivity graph" /></p>
 
 <p>Although for people who are curious about the details, I&rsquo;ll give it a try on explain it from my little understanding. We are going to walk through each component and explain how they interact step by step, so you should be able to understand the whole picture in the end.</p>
 
@@ -315,7 +324,7 @@ const watcher = new Watcher(vm.watch.message);
 
 <p>Before we start talking about the render function used in Vue, we need to understand what is Virtual DOM. We know the real DOM element in the HTML is a tree structure referred as DOM tree.</p>
 
-<p><img src="/img/vue/dom-tree.png"></p>
+<p><img src="/img/vue/dom-tree.png" alt="DOM tree" /></p>
 
 <p>Virtual DOM is simply a javascript object that represents a real DOM element. But why? Because DOM tree search and update is expansive. A search for example <code>document.querySelectorALL('.item')</code> will walk through the whole document. A component re-render <code>$('#container').html(component.render())</code> will destroy the sub tree and re-construct. With virtual DOM, all the operation is performed in the memory during runtime and eventually the minimum DOM update is patched to the document. In Vue, we call the virtual DOM <code>vnode</code> since it is a virtual node.</p>
 
@@ -393,12 +402,19 @@ function render() {
 
     <p class="is-size-5"><a href="/post/the-battle-between-angular-and-vue/">The Battle Between Angular and Vue</a></p>
     <p>August 26, 2018</p>
-    
-    <a href="https://ts-xie.github.io/tags/frontend"><kbd class="item-tag">frontend</kbd></a>
-    
-    <a href="https://ts-xie.github.io/tags/framework"><kbd class="item-tag">framework</kbd></a>
-    
-
+    <div class="tags">
+        <div class="container">
+            
+            <span class="tag">
+                <a href="https://ts-xie.github.io/tags/frontend">frontend</a>
+            </span>
+            
+            <span class="tag">
+                <a href="https://ts-xie.github.io/tags/framework">framework</a>
+            </span>
+            
+        </div>
+    </div>
 </div>
  
 
