@@ -18,7 +18,7 @@
       
       <guid>https://ts-xie.github.io/post/v1.0.1/</guid>
       <description>Following are the improvements released in this patch:
- Support MacOS dark mode Better support for Safari/Firefox Local resource host Standardize Code highlight  Support MacOS dark mode A newly designed dark theme that works well in Dark Mode MacOS Mojave.
+ Support MacOS dark mode Better support for Safari/Firefox Local resource host Standardize code highlight  Support MacOS dark mode A newly designed dark theme that works well in Dark Mode MacOS Mojave.
 Since it is not a standard technology yet. It will not work for browsers other than Safari. To try it yourself, download Safari Technology Preview then open this site with it.</description>
     </item>
     
